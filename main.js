@@ -41,13 +41,32 @@ console.log(timeConvert(103));
 var bracketMatcher = function(string){
 	var array = string.split('');
 	var brackets = [];
-	for(var i = 0 ; i < array.length ; i++){
-		if(array[i] === '('){
-			brackets.push(array[i]);
-		} else if (array[i] === ')'){
-			if(brackets.length > 0 && brackets.indexOf('(') !)
+	if(array.indexOf('(') !== -1){
+		for(var i = 0 ; i < array.length ; i++){
+			if(array[i] === '('){
+				brackets.push(array[i]);
+			} else if (array[i] === ')'){
+				if(brackets.length > 0 && brackets.indexOf('(') !== -1){
+					var index = brackets.indexOf('(');
+					brackets.splice(index, 1);
+				} else {
+					return false;
+				}
+			}
 		}
+	} else {
+		return true;
 	}
 
+	if(brackets.length === 0){
+		return true;
+	} else {
+		return false;
+	}
+	
+};	
 
-};
+	console.log(bracketMatcher("(()())"));
+	console.log(bracketMatcher("word"));
+	console.log(bracketMatcher("((hello (world))"));
+	console.log(bracketMatcher("(hello (world))"));
